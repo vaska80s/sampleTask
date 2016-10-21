@@ -35,9 +35,14 @@ public class App {
             reader.setInput(iis);
             ImageReadParam param = reader.getDefaultReadParam();
             int imageIndex = 0;
-            int xSubsampling = reader.getWidth(imageIndex)/OUT_WIDTH;
-            int ySubsampling = reader.getHeight(imageIndex)/OUT_HEIGHT;
-            param.setSourceSubsampling(xSubsampling, ySubsampling, 0, 0);
+            int subsampling;
+            if(reader.getWidth(imageIndex) > reader.getHeight(imageIndex)){
+                subsampling = reader.getWidth(imageIndex)/OUT_WIDTH;
+            } else {
+                subsampling = reader.getHeight(imageIndex)/OUT_HEIGHT;
+            }
+
+            param.setSourceSubsampling(subsampling, subsampling, 0, 0);
 
             BufferedImage bi = reader.read(imageIndex, param);
 
