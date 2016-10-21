@@ -2,19 +2,13 @@ package org.vaska80s.samples;
 
 
 import org.apache.log4j.Logger;
+import org.vaska80s.samples.resizer.Resizer;
 
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReadParam;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 
 /**
- * Hello world!
+ * Main class
  */
 public class App {
     private final static Logger log = Logger.getLogger(App.class);
@@ -23,47 +17,13 @@ public class App {
     private final static int OUT_HEIGHT = 640;
 
     public static void main(String[] args) {
-        File imageFile = new File("../27388.jpg");
-
         try {
-            ImageInputStream iis = ImageIO.createImageInputStream(imageFile);
-            Iterator iterator = ImageIO.getImageReaders(iis);
-            if(!iterator.hasNext()){
-                System.out.println("Unsupported file format " + imageFile.getName());
-            }
-            ImageReader reader = (ImageReader) iterator.next();
-            reader.setInput(iis);
-            ImageReadParam param = reader.getDefaultReadParam();
-            int imageIndex = 0;
-            int subsampling;
-            if(reader.getWidth(imageIndex) > reader.getHeight(imageIndex)){
-                subsampling = reader.getWidth(imageIndex)/OUT_WIDTH;
-            } else {
-                subsampling = reader.getHeight(imageIndex)/OUT_HEIGHT;
-            }
-
-            param.setSourceSubsampling(subsampling, subsampling, 0, 0);
-
-            BufferedImage bi = reader.read(imageIndex, param);
-
-            File outputfile = new File("../27388-proc.jpg");
-            ImageIO.write(bi, reader.getFormatName(), outputfile);
-
-            BufferedImage outImage = getBackgroundImage(bi.getType());
-            outImage.getGraphics().drawImage(bi, 0, 0, OUT_WIDTH, OUT_HEIGHT, 0, 0, bi.getWidth(), bi.getHeight(), null);
-            File bgFile = new File("../bg.jpg");
-            ImageIO.write(outImage, reader.getFormatName(), bgFile);
+            Resizer resizer = new Resizer(OUT_WIDTH, OUT_HEIGHT);
+            resizer.resize(new File("../27388.jpg"), new File("../resized.jpg"));
+            resizer.resize(new File("../RM.png"), new File("../RM-resized.png"));
+            resizer.resize(new File("../fit.jpg"), new File("../fit-resized.jpg"));
         } catch (IOException e) {
             log.error(e);
         }
-    }
-
-    private static BufferedImage getBackgroundImage(int imageType){
-        BufferedImage img = new BufferedImage(OUT_WIDTH, OUT_HEIGHT, imageType);
-        Graphics g = img.getGraphics();
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, OUT_WIDTH, OUT_HEIGHT);
-
-        return img;
     }
 }
