@@ -22,6 +22,8 @@ public class App {
             resizer.resize(new File("../27388.jpg"), new File("../resized.jpg"));
             resizer.resize(new File("../RM.png"), new File("../RM-resized.png"));
             resizer.resize(new File("../fit.jpg"), new File("../fit-resized.jpg"));
+            Resizer hiResResizer = new Resizer(5600, 600);
+            hiResResizer.resize(new File("../27388.jpg"), new File("../hiRes.jpg"));
         } catch (IOException e) {
             log.error(e);
         }

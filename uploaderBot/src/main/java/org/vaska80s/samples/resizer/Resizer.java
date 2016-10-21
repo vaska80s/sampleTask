@@ -78,12 +78,15 @@ public class Resizer {
         int oWidth = originalImage.getWidth();
         int oHeight = originalImage.getHeight();
 
-        if (oWidth > oHeight) {
+        float oAspectRatio = (float)originalImage.getWidth()/originalImage.getHeight();
+        float tAspectRatio = (float)targetXSize/targetYSize;
+
+        if (oAspectRatio > tAspectRatio) {
             Float scale = targetXSize / (float) oWidth;
             yOffset = (int)(targetYSize - oHeight * scale)/2;
-        } else if (oHeight > oWidth) {
+        } else if (tAspectRatio > oAspectRatio) {
             Float scale = targetYSize / (float) oHeight;
-            xOffset = (int)(targetXSize / oWidth * scale)/2;
+            xOffset = (int)(targetXSize - oWidth * scale)/2;
         }
 
         BufferedImage outImage = new BufferedImage(targetXSize, targetYSize, originalImage.getType());
