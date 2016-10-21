@@ -1,6 +1,7 @@
 package org.vaska80s.samples;
 
 
+import com.drew.imaging.ImageProcessingException;
 import org.apache.log4j.Logger;
 import org.vaska80s.samples.resizer.Resizer;
 
@@ -22,9 +23,11 @@ public class App {
             resizer.resize(new File("../27388.jpg"), new File("../resized.jpg"));
             resizer.resize(new File("../RM.png"), new File("../RM-resized.png"));
             resizer.resize(new File("../fit.jpg"), new File("../fit-resized.jpg"));
+            resizer.resize(new File("../20160622_222108.jpg"), new File("../222108-res.jpg"));
+            resizer.resize(new File("../20160622_222108.png"), new File("../222108-res.png"));
             Resizer hiResResizer = new Resizer(5600, 600);
             hiResResizer.resize(new File("../27388.jpg"), new File("../hiRes.jpg"));
-        } catch (IOException e) {
+        } catch (IOException | ImageProcessingException e) {
             log.error(e);
         }
     }
