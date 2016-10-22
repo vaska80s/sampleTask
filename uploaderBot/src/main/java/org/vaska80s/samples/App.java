@@ -2,11 +2,15 @@ package org.vaska80s.samples;
 
 
 import com.drew.imaging.ImageProcessingException;
+import com.dropbox.core.DbxException;
+import com.dropbox.core.DbxRequestConfig;
+import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.files.FileMetadata;
+import com.dropbox.core.v2.users.FullAccount;
 import org.apache.log4j.Logger;
 import org.vaska80s.samples.resizer.Resizer;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Main class
@@ -17,7 +21,31 @@ public class App {
     private final static int OUT_WIDTH = 640;
     private final static int OUT_HEIGHT = 640;
 
+    private static String dropBoxToken = "GI6iMyo3QLAAAAAAAAAACPBgOpAMc-NO7lmSBC4L1rpZUz_7apqexoIUhWFNKU5Z";
+
     public static void main(String[] args) {
+        try {
+            upload(new File("../he-he.jpg"));
+
+        } catch (DbxException | IOException e) {
+            log.error(e);
+        }
+    }
+
+    private static void upload(File fileToUpload) throws DbxException, IOException {
+        DbxRequestConfig config = new DbxRequestConfig("uploaderBot/1.0");
+        DbxClientV2 client = new DbxClientV2(config, dropBoxToken);
+
+        FullAccount account = client.users().getCurrentAccount();
+        System.out.println("Using account: " + account.getName().getDisplayName());
+
+        try (InputStream in = new FileInputStream(fileToUpload)) {
+            FileMetadata metadata = client.files().uploadBuilder("/" + fileToUpload.getName()).uploadAndFinish(in);
+        }
+
+    }
+
+    private static void resize(){
         try {
             Resizer resizer = new Resizer(OUT_WIDTH, OUT_HEIGHT);
             resizer.resize(new File("../27388.jpg"), new File("../resized.jpg"));
