@@ -81,7 +81,9 @@ public class Resizer {
 
         formatName = reader.getFormatName();
 
-        return rotate(reader.read(imageIndex, param), imageFile);
+        BufferedImage bufferedImage = reader.read(imageIndex, param);
+        iis.close();
+        return rotate(bufferedImage, imageFile);
     }
 
     private BufferedImage resize(BufferedImage originalImage) {

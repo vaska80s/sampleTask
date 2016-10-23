@@ -1,12 +1,12 @@
 package org.vaska80s.samples.agents;
 
+import org.vaska80s.samples.QueueException;
+import org.vaska80s.samples.queue.Message;
 import org.vaska80s.samples.queue.QueueManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 /**
  * @author Vasiliy Serov.
@@ -39,14 +39,19 @@ public class Scheduler {
     /**
      * Schedule files for further processing
      *
-     * @throws IOException if it encounters a problem with a queue
-     * @throws TimeoutException communication problem with a queue
+     * @throws QueueException communication problem with a queue
      */
-    public void schedule() throws IOException, TimeoutException {
-        try(QueueManager queue = new QueueManager(QueueManager.RESIZER_Q_NAME)){
-            for (File file : imageDirectory.listFiles()) {
-                queue.pushUrl(file.getCanonicalPath());
+    public void schedule(QueueManager queue) throws QueueException {
+        try{
+            File[] files = imageDirectory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    Message message = new Message(file.getCanonicalPath());
+                    queue.pushMsg(message);
+                }
             }
+        } catch (IOException e) {
+            System.out.println("Can't get path for file");
         }
     }
 }
