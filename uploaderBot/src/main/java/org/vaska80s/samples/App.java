@@ -79,7 +79,7 @@ public class App {
                     printUsage();
             }
         } catch (IOException e) {
-            System.out.println("Can't read configuration file");
+            System.out.println("Can't read configuration file: " + e.getMessage());
         } finally {
             if (app != null) {
                 app.closeQueues();

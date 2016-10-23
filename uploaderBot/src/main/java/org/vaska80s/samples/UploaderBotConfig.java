@@ -1,7 +1,7 @@
 package org.vaska80s.samples;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -16,8 +16,8 @@ class UploaderBotConfig {
     UploaderBotConfig() throws IOException {
         prop = new Properties();
 
-        String propFileName = "uploadbot.properties";
-        InputStream inputStream = new FileInputStream(propFileName);
+        File propFile = new File("uploadbot.properties");
+        InputStream inputStream = new FileInputStream(propFile);
         prop.load(inputStream);
     }
 
