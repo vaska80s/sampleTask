@@ -1,5 +1,6 @@
 package org.vaska80s.samples;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,17 +16,12 @@ class UploaderBotConfig {
     UploaderBotConfig() throws IOException {
         prop = new Properties();
 
-        String propFileName = "/uploadbot.properties";
-        InputStream inputStream = getClass().getResourceAsStream(propFileName);
-
-        if (inputStream != null) {
-            prop.load(inputStream);
-        } else {
-            throw new FileNotFoundException("Configuration file " + propFileName + " not found in the classpath");
-        }
+        String propFileName = "uploadbot.properties";
+        InputStream inputStream = new FileInputStream(propFileName);
+        prop.load(inputStream);
     }
 
-    String getBrokerHost(){
+    String getBrokerHost() {
         return prop.getProperty("queue.rabbitmq.host", "localhost");
     }
 
@@ -33,7 +29,7 @@ class UploaderBotConfig {
         return prop.getProperty("resizer.tmpdir", "./");
     }
 
-    String getDropboxToken(){
+    String getDropboxToken() {
         return prop.getProperty("uploader.dropboxtoken", "");
     }
 }
