@@ -108,7 +108,7 @@ public class App {
 
     private void schedule(String srcDirectory) {
         try {
-            resizerQueue = new QueueManager(QueueManager.RESIZER_Q_NAME, config.getBrokerHost());
+            resizerQueue = new QueueManager(QueueManager.RESIZER_Q_NAME, config);
             Scheduler scheduler = new Scheduler(srcDirectory);
             scheduler.schedule(resizerQueue);
         } catch (IOException e) {
@@ -122,9 +122,9 @@ public class App {
 
     private void resize(int count) {
         try {
-            resizerQueue = new QueueManager(QueueManager.RESIZER_Q_NAME, config.getBrokerHost());
-            uploaderQueue = new QueueManager(QueueManager.UPLOAD_Q_NAME, config.getBrokerHost());
-            failQueue = new QueueManager(QueueManager.FAIL_Q_NAME, config.getBrokerHost());
+            resizerQueue = new QueueManager(QueueManager.RESIZER_Q_NAME, config);
+            uploaderQueue = new QueueManager(QueueManager.UPLOAD_Q_NAME, config);
+            failQueue = new QueueManager(QueueManager.FAIL_Q_NAME, config);
         } catch (QueueException e) {
             System.out.println("FATAL: can't initialize queue: " + e.getMessage());
             return;
@@ -165,9 +165,9 @@ public class App {
 
     private void upload(Integer count) {
         try {
-            uploaderQueue = new QueueManager(QueueManager.UPLOAD_Q_NAME, config.getBrokerHost());
-            doneQueue = new QueueManager(QueueManager.DONE_Q_NAME, config.getBrokerHost());
-            failQueue = new QueueManager(QueueManager.FAIL_Q_NAME, config.getBrokerHost());
+            uploaderQueue = new QueueManager(QueueManager.UPLOAD_Q_NAME, config);
+            doneQueue = new QueueManager(QueueManager.DONE_Q_NAME, config);
+            failQueue = new QueueManager(QueueManager.FAIL_Q_NAME, config);
         } catch (QueueException e) {
             System.out.println("FATAL: can't initialize queue: " + e.getMessage());
             return;
@@ -204,8 +204,8 @@ public class App {
 
     private void reschedule(int count) {
         try {
-            resizerQueue = new QueueManager(QueueManager.RESIZER_Q_NAME, config.getBrokerHost());
-            failQueue = new QueueManager(QueueManager.FAIL_Q_NAME, config.getBrokerHost());
+            resizerQueue = new QueueManager(QueueManager.RESIZER_Q_NAME, config);
+            failQueue = new QueueManager(QueueManager.FAIL_Q_NAME, config);
         } catch (QueueException e) {
             System.out.println("FATAL: can't initialize queue: " + e.getMessage());
             return;
@@ -229,10 +229,10 @@ public class App {
 
     private void printStatus(){
         try {
-            resizerQueue = new QueueManager(QueueManager.RESIZER_Q_NAME, config.getBrokerHost());
-            uploaderQueue = new QueueManager(QueueManager.UPLOAD_Q_NAME, config.getBrokerHost());
-            doneQueue = new QueueManager(QueueManager.DONE_Q_NAME, config.getBrokerHost());
-            failQueue = new QueueManager(QueueManager.FAIL_Q_NAME, config.getBrokerHost());
+            resizerQueue = new QueueManager(QueueManager.RESIZER_Q_NAME, config);
+            uploaderQueue = new QueueManager(QueueManager.UPLOAD_Q_NAME, config);
+            doneQueue = new QueueManager(QueueManager.DONE_Q_NAME, config);
+            failQueue = new QueueManager(QueueManager.FAIL_Q_NAME, config);
         } catch (QueueException e) {
             System.out.println("FATAL: can't initialize queue: " + e.getMessage());
             return;

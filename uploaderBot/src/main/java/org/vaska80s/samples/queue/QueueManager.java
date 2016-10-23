@@ -4,6 +4,7 @@ import com.rabbitmq.client.*;
 import com.rabbitmq.tools.json.JSONReader;
 import com.rabbitmq.tools.json.JSONWriter;
 import org.vaska80s.samples.QueueException;
+import org.vaska80s.samples.UploaderBotConfig;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,10 +30,12 @@ public class QueueManager {
      * @param queueName name of queue
      * @throws QueueException if can't initialize the queue
      */
-    public QueueManager(String queueName, String host) throws QueueException {
+    public QueueManager(String queueName, UploaderBotConfig config) throws QueueException {
         ConnectionFactory factory = new ConnectionFactory();
         try {
-            factory.setHost(host);
+            factory.setHost(config.getBrokerHost());
+            factory.setUsername(config.getRabbitUser());
+            factory.setPassword(config.getRabbitPassword());
             connection = factory.newConnection();
             channel = connection.createChannel();
             declareOk = channel.queueDeclare(queueName, false, false, false, null);
@@ -74,8 +77,8 @@ public class QueueManager {
                 String strMsg = new String(response.getBody(), "UTF-8");
                 JSONReader reader = new JSONReader();
                 HashMap<String, Object> map = (HashMap<String, Object>) reader.read(strMsg);
-                String sourceUrl = (String)map.get("sourceUrl");
-                String resizedUrl = (String)map.get("resizedUrl");
+                String sourceUrl = (String) map.get("sourceUrl");
+                String resizedUrl = (String) map.get("resizedUrl");
                 result = new Message(sourceUrl, resizedUrl, response.getEnvelope().getDeliveryTag());
             }
         } catch (IOException e) {

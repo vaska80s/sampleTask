@@ -9,7 +9,7 @@ import java.util.Properties;
 /**
  * @author Vasiliy Serov.
  */
-class UploaderBotConfig {
+public class UploaderBotConfig {
 
     private Properties prop;
 
@@ -21,15 +21,23 @@ class UploaderBotConfig {
         prop.load(inputStream);
     }
 
-    String getBrokerHost() {
+    public String getBrokerHost() {
         return prop.getProperty("queue.rabbitmq.host", "localhost");
     }
 
-    String getResizerDstDir() {
+    public String getResizerDstDir() {
         return prop.getProperty("resizer.tmpdir", "./");
     }
 
-    String getDropboxToken() {
+    public String getDropboxToken() {
         return prop.getProperty("uploader.dropboxtoken", "");
+    }
+
+    public String getRabbitUser(){
+        return prop.getProperty("rabbit.user", "guest");
+    }
+
+    public String getRabbitPassword(){
+        return prop.getProperty("rabbit.password", "guest");
     }
 }
