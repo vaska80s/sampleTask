@@ -58,6 +58,10 @@ public class Resizer {
             throw new IOException("File " + imageFile.getName() + " does not exist");
         }
         ImageInputStream iis = ImageIO.createImageInputStream(imageFile);
+        if(iis == null){
+            throw new IOException("Unsupported image format " + imageFile.getName());
+        }
+
         Iterator iterator = ImageIO.getImageReaders(iis);
 
         if (!iterator.hasNext()) {
