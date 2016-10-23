@@ -1,4 +1,4 @@
-package org.vaska80s.samples.resizer;
+package org.vaska80s.samples.agents;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
