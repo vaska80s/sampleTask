@@ -141,7 +141,7 @@ public class Resizer {
 
         switch (orientation) {
             case 1:
-                break;
+                return inImage;
             case 2: //Flip X
                 t.scale(-1.0, 1.0);
                 t.translate(-inImage.getWidth(), 0);
