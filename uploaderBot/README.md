@@ -56,3 +56,16 @@ Available commands:
         retry           Reschedule failed images
 
 ```
+
+## Docker
+
+You can create and run Docker container from supplied Dockerfile, this requires Internet connection. To do this run following command in ```sampleTask\uploaderBot``` directory:
+
+```sh
+$ cd sampleTask\uploaderBot
+$ docker build -t ubot .
+$ docker run -d -h ubot --name ubot -p 8090:15672 ubot
+$ docker exec -ti ubot /bin/bash
+```
+
+To connect with rabbitmq managment page go to url http://your-docker-ip:8090/ and login as "guest" with password "guest". Inside container you will find /ubot directory with ready to run script and sample images in /ubot/img.
