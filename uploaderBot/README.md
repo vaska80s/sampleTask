@@ -59,7 +59,7 @@ Available commands:
 
 ## Docker
 
-You can create and run Docker container from supplied Dockerfile, this requires Internet connection. To do this run following command in ```sampleTask\uploaderBot``` directory:
+You can create and run a Docker container from supplied Dockerfile, this option requires Internet connection. To do this, run following commands in ```sampleTask\uploaderBot``` directory:
 
 ```sh
 $ cd sampleTask\uploaderBot
