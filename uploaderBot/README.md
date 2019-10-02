@@ -6,8 +6,8 @@ This command line application resizes and uploads given images to remote cloud s
 
 To compile and run this script the following software is required: 
 [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), 
-[Maven](http://maven.apache.org/download.cgi) and [RabbitMQ](https://www.rabbitmq.com/download.html)
-All software does not required any special configuration steps. 
+[Maven](http://maven.apache.org/download.cgi) and [RabbitMQ](https://www.rabbitmq.com/download.html).
+All software do not required any special configuration steps. 
 
 ## Compilation
 
