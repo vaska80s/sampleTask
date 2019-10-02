@@ -7,7 +7,7 @@ This command line application resizes and uploads given images to remote cloud s
 To compile and run this script the following software is required: 
 [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), 
 [Maven](http://maven.apache.org/download.cgi) and [RabbitMQ](https://www.rabbitmq.com/download.html).
-All software do not required any special configuration steps. 
+All software do not require any special configuration steps. 
 
 ## Compilation
 
@@ -27,7 +27,7 @@ classes/      generated-test-sources/  maven-status/    test-classes/      ubot-
 
 ## Configuration file
 
-Before you can run the script you have to specify at least Dropbox authorization token and resizer temp dir, where resized photos will be stored. To do it, copy appropriate type of archive, uncompress it and change uploader.dropboxtoken and resizer.tmpdir values in ```uploadbot.properties``` file:
+Before you can run the script, you have to specify at least Dropbox authorization token and resizer temp dir, where resized photos will be stored. To do it, copy appropriate type of archive, uncompress it and change uploader.dropboxtoken and resizer.tmpdir values in ```uploadbot.properties``` file:
 
 ```sh
 $ cp target/ubot-bin.tar.bz2 ../../ 
