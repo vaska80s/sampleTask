@@ -1,8 +1,7 @@
 FROM rabbitmq:3-management
 
-RUN echo "deb http://httpredir.debian.org/debian/ jessie-backports main" > /etc/apt/sources.list.d/debian-jessie-backports.list \
-    && apt-get update \ 
-    && apt-get -y -t jessie-backports install openjdk-8-jdk \
+RUN apt-get update \ 
+    && apt-get -y install openjdk-8-jdk \
     && apt-get -y install git \
     maven \
     wget \
