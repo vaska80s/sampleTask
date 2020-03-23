@@ -36,4 +36,8 @@ public class Message {
     public void setResizedUrl(String resizedUrl) {
         this.resizedUrl = resizedUrl;
     }
+
+    void setMessageTag(long messageTag) {
+        this.messageTag = messageTag;
+    }
 }

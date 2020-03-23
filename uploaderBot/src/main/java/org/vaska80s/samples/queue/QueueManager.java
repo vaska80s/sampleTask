@@ -71,6 +71,7 @@ public class QueueManager {
             if (response != null) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 result = objectMapper.readValue(response.getBody(), Message.class);
+                result.setMessageTag(response.getEnvelope().getDeliveryTag());
             }
         } catch (IOException e) {
             throw new QueueException(e);
