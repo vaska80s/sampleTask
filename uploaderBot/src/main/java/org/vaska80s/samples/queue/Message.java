@@ -9,6 +9,8 @@ public class Message {
     private String resizedUrl;
     private long messageTag;
 
+    public Message() {}
+
     public Message(String sourceUrl) {
         this.sourceUrl = sourceUrl;
     }
