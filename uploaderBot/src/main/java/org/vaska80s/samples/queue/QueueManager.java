@@ -1,13 +1,11 @@
 package org.vaska80s.samples.queue;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.*;
-import com.rabbitmq.tools.json.JSONReader;
-import com.rabbitmq.tools.json.JSONWriter;
 import org.vaska80s.samples.QueueException;
 import org.vaska80s.samples.UploaderBotConfig;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -19,8 +17,8 @@ public class QueueManager {
     public static final String DONE_Q_NAME = "done";
     public static final String FAIL_Q_NAME = "fail";
 
-    private Connection connection = null;
-    private Channel channel = null;
+    private Connection connection;
+    private Channel channel;
     private AMQP.Queue.DeclareOk declareOk;
     private String queueName;
 
@@ -54,9 +52,7 @@ public class QueueManager {
      */
     public void pushMsg(Message message) throws QueueException {
         try {
-            JSONWriter writer = new JSONWriter();
-            String strMsg = writer.write(message);
-            channel.basicPublish("", queueName, null, strMsg.getBytes());
+            channel.basicPublish("", queueName, null, new ObjectMapper().writeValueAsBytes(message));
         } catch (IOException e) {
             throw new QueueException(e);
         }
@@ -68,18 +64,13 @@ public class QueueManager {
      * @return url or null if queue is empty
      * @throws QueueException if error occured
      */
-    @SuppressWarnings(value = "unchecked")
     public Message getNextMsg() throws QueueException {
         Message result = null;
         try {
             GetResponse response = channel.basicGet(queueName, false);
             if (response != null) {
-                String strMsg = new String(response.getBody(), "UTF-8");
-                JSONReader reader = new JSONReader();
-                HashMap<String, Object> map = (HashMap<String, Object>) reader.read(strMsg);
-                String sourceUrl = (String) map.get("sourceUrl");
-                String resizedUrl = (String) map.get("resizedUrl");
-                result = new Message(sourceUrl, resizedUrl, response.getEnvelope().getDeliveryTag());
+                ObjectMapper objectMapper = new ObjectMapper();
+                result = objectMapper.readValue(response.getBody(), Message.class);
             }
         } catch (IOException e) {
             throw new QueueException(e);

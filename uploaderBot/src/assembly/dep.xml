@@ -13,14 +13,14 @@
     <fileSets>
         <fileSet>
             <directory>${project.basedir}</directory>
-            <outputDirectory>/ubot</outputDirectory>
+            <outputDirectory>ubot</outputDirectory>
             <includes>
                 <include>README*</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/assembly</directory>
-            <outputDirectory>/ubot</outputDirectory>
+            <outputDirectory>ubot</outputDirectory>
             <includes>
                 <include>bot</include>
             </includes>
@@ -28,7 +28,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/assembly</directory>
-            <outputDirectory>/ubot</outputDirectory>
+            <outputDirectory>ubot</outputDirectory>
             <includes>
                 <include>bot.bat</include>
             </includes>
@@ -36,7 +36,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/assembly</directory>
-            <outputDirectory>/ubot</outputDirectory>
+            <outputDirectory>ubot</outputDirectory>
             <includes>
                 <include>uploadbot.properties</include>
             </includes>
@@ -44,7 +44,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}</directory>
-            <outputDirectory>/ubot</outputDirectory>
+            <outputDirectory>ubot</outputDirectory>
             <includes>
                 <include>*.jar</include>
             </includes>
@@ -52,7 +52,7 @@
     </fileSets>
     <dependencySets>
         <dependencySet>
-            <outputDirectory>/ubot/lib</outputDirectory>
+            <outputDirectory>ubot/lib</outputDirectory>
             <useProjectArtifact>false</useProjectArtifact>
             <unpack>false</unpack>
             <scope>runtime</scope>
